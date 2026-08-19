@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sastra untuk Sang Mentari</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&display=swap');
+
+  :root{
+    --paper:#FBF2E3;
+    --ink:#2E2519;
+    --rule:#E4D3B0;
+    --sun:#C97A2B;
+    --sun-light:#E8A94B;
+    --sky:#6B7D6E;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{ height:100%; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(232,169,75,0.35), transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:64px 20px 100px;
+  }
+
+  .page{
+    max-width:600px;
+    width:100%;
+  }
+
+  .sun{
+    width:46px;
+    height:46px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--sun-light), var(--sun) 70%);
+    box-shadow:0 0 40px rgba(201,122,43,0.45);
+    opacity:0;
+    animation:rise 1.1s ease forwards;
+  }
+
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(10px) scale(0.8); }
+    to{ opacity:1; transform:translateY(0) scale(1); }
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:34px;
+    text-align:center;
+    margin:0 0 4px;
+    opacity:0;
+    animation:fadein 1s ease forwards 0.4s;
+  }
+
+  .subtitle{
+    text-align:center;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--sky);
+    margin:0 0 48px;
+    opacity:0;
+    animation:fadein 1s ease forwards 0.7s;
+  }
+
+  @keyframes fadein{
+    to{ opacity:1; }
+  }
+
+  #stream{
+    min-height:60vh;
+  }
+
+  .block{
+    margin-bottom:8px;
+  }
+
+  .para{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;
+    line-height:1.75;
+    margin:0 0 40px;
+    color:#3a2f1f;
+  }
+
+  .heading{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:21px;
+    color:var(--sun);
+    margin:0 0 16px;
+    padding-top:8px;
+    border-top:1px solid var(--rule);
+  }
+
+  .bullet-line{
+    display:flex;
+    align-items:flex-start;
+    margin-bottom:12px;
+    font-size:16px;
+    line-height:1.6;
+  }
+
+  .bullet-line .dot{
+    color:var(--sun);
+    margin-right:10px;
+    font-size:18px;
+    line-height:1.4;
+    flex-shrink:0;
+  }
+
+  .bullet-text{ }
+
+  .section-gap{
+    height:8px;
+  }
+
+  .closing{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:20px;
+    text-align:center;
+    color:var(--sun);
+    margin-top:56px;
+    padding-top:32px;
+    border-top:1px solid var(--rule);
+    line-height:1.7;
+  }
+
+  .cursor{
+    display:inline-block;
+    width:2px;
+    height:1em;
+    background:var(--sun);
+    margin-left:2px;
+    vertical-align:-0.1em;
+    animation:blink 0.9s step-end infinite;
+  }
+
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  @media (max-width:480px){
+    h1{ font-size:27px; }
+    .para{ font-size:17px; }
+    .heading{ font-size:19px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="sun"></div>
+    <h1>Sastra untuk Sang Mentari</h1>
+    <div class="subtitle">— ditulis dari hati —</div>
+    <div id="stream"></div>
+  </div>
+
+<script>
+  // Struktur naskah: heading tampil dengan fade, isi lain diketik huruf per huruf
+  const script = [
+    { type:'para', text:'Mentari yang berarti matahari sangat cocok dengan dirimu, yang di mana kehadiranmu membawa kehangatan, mengusir mendung di hati, dan menjadi cahaya penuntun hari-hariku menjadi jauh lebih cerah dibanding sebelumnya.' },
+
+    { type:'heading', text:'Mentari sebagai cahaya dalam hidup' },
+    { type:'bullet', text:'Terimakasih telah hadir membawa terang.' },
+    { type:'bullet', text:'Senyummu mengusir sepi dan ragu.' },
+    { type:'bullet', text:'Kamu membuat duniaku penuh akan warna.' },
+
+    { type:'heading', text:'Pemberi kehangatan paling tulus' },
+    { type:'bullet', text:'Terimakasih atas segala kebaikanmu.' },
+    { type:'bullet', text:'Hati senantiasa damai jika di dekatmu.' },
+    { type:'bullet', text:'Kepedulianmu menghidupkan kembali semangatku.' },
+
+    { type:'heading', text:'Sang pendamping setia' },
+    { type:'bullet', text:'Terimakasih selalu berjalan di sampingku.' },
+    { type:'bullet', text:'Genggaman tanganmu memberiku kekuatan.' },
+    { type:'bullet', text:'Kamu adalah sandaran terbaik ketika raga ini sedang lelah.' },
+
+    { type:'heading', text:'Pemberi harapan baru' },
+    { type:'bullet', text:'Bersamamu, hari esok selalu indah.' },
+    { type:'bullet', text:'Terimakasih selalu ada untukku.' },
+    { type:'bullet', text:'Kamu adalah anugerah terindah.' },
+
+    { type:'closing', text:'Akhir dari sastra dari diriku untukmu, sang mentariku.' }
+  ];
+
+  const stream = document.getElementById('stream');
+  let idx = 0;
+
+  function typeChar(el, text, i, cursor, onDone){
+    if(i < text.length){
+      el.textContent = text.slice(0, i + 1);
+      el.appendChild(cursor);
+
+      const ch = text.charAt(i);
+      let delay = 190 + Math.random() * 160;
+      if(Math.random() < 0.08) delay += 350 + Math.random() * 400;
+      if(ch === " ") delay += 60;
+      if(ch === ",") delay += 400;
+      if(ch === "." || ch === "!" || ch === "?") delay += 700;
+
+      setTimeout(() => typeChar(el, text, i + 1, cursor, onDone), delay);
+    } else {
+      cursor.remove();
+      onDone();
+    }
+  }
+
+  function nextBlock(){
+    if(idx >= script.length) return;
+    const item = script[idx];
+    idx++;
+
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+
+    if(item.type === 'heading'){
+      const h = document.createElement('div');
+      h.className = 'heading';
+      h.style.opacity = '0';
+      h.style.transition = 'opacity 0.6s ease';
+      h.textContent = item.text;
+      stream.appendChild(h);
+      requestAnimationFrame(() => { h.style.opacity = '1'; });
+      window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth' });
+      setTimeout(nextBlock, 700);
+
+    } else if(item.type === 'para'){
+      const p = document.createElement('p');
+      p.className = 'para';
+      stream.appendChild(p);
+      typeChar(p, item.text, 0, cursor, () => {
+        setTimeout(nextBlock, 500);
+      });
+
+    } else if(item.type === 'bullet'){
+      const line = document.createElement('div');
+      line.className = 'bullet-line';
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.textContent = '✦';
+      const span = document.createElement('span');
+      span.className = 'bullet-text';
+      line.appendChild(dot);
+      line.appendChild(span);
+      stream.appendChild(line);
+      typeChar(span, item.text, 0, cursor, () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth' });
+        setTimeout(nextBlock, 350);
+      });
+
+    } else if(item.type === 'closing'){
+      const c = document.createElement('p');
+      c.className = 'closing';
+      stream.appendChild(c);
+      typeChar(c, item.text, 0, cursor, () => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior:'smooth' });
+      });
+    }
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(nextBlock, 900);
+  });
+</script>
+</body>
+</html>
